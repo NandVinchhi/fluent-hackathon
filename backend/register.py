@@ -14,7 +14,7 @@ def register(name, email, password):
         if db.users.find_one({"email":email}) == None:
             hashp = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
             userid = generate_id()
-            k = {"name":name, "email":email, "password":hashp, 'id':userid, "pace":[], "eloquence":[], "word_choice": []}
+            k = {"name":name, "email":email, "password":hashp, 'id':userid, "pace":[], "eloquence":[], "word_choice": [], "pronunciation":[], "overall_score":[]}
             db.users.insert_one(k)
             return {"status":"success", "id":userid}
         else:

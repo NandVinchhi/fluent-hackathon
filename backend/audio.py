@@ -12,6 +12,14 @@ from pydub import AudioSegment
 from pydub.silence import split_on_silence
 
 
+def get_overall_score(pace, word_choice, eloquence, pronunciation):
+
+    final = word_choice + pronunciation
+    final += ((158 - abs(158 - pace))/158) * 100
+
+    final += (50 / (50 + eloquence)) * 100
+
+    return round(final/4, 1)
 def get_word_choice(k):
     d = {}
     
@@ -27,13 +35,15 @@ def get_word_choice(k):
 
 def process(k):
     final = [[], [], []]
+    confidence = 0
 
     for i in k.results:
+        confidence += i.alternatives[0].confidence
         final[0].append(i.alternatives[0].words[0].word)
         final[1].append(i.alternatives[0].words[0].start_time.total_seconds())
 
         final[2].append(i.alternatives[0].words[0].end_time.total_seconds())
-    return final
+    return final, confidence/len(final[1])
 
 def transcribe_file(file_name):
 
@@ -73,7 +83,8 @@ def get_data(k):
     encode_string = bytes(k, 'utf-8')
     write_to_file(encode_string, 0)
     k = transcribe_file("audio.raw")
-    f = process(k)
+    
+    f, confidence = process(k)
     length = get_length("audio.wav")
     pace = int((len(f[2])/ f[2][len(f[2]) - 1]) * 60 + 0.5)
     word_choice_score = get_word_choice(f[0])
@@ -111,7 +122,7 @@ def get_data(k):
     os.remove("audio.wav")
     os.remove("audio.raw")
     os.remove("output.mp3")
-    return {"status":"success", "output_audio":s, "pace":pace, "word_choice":word_choice_score, "eloquence":num_filler}
+    return {"status":"success", "output_audio":s, "pronunciation":round(confidence * 100, 1), "pace":pace, "word_choice":word_choice_score, "eloquence":num_filler, "overall_score":get_overall_score(pace, word_choice_score, num_filler, confidence)}
 
 
 # s = str(base64.b64encode(open("test2.mp3", "rb").read()))
