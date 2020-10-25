@@ -78,9 +78,9 @@ function AnalyzeSpeech() {
               </Container>
             </div>
           </div>
-          <div className="separator-line bg-info"></div>
+          {/* <div className="separator-line bg-info"></div> */}
 
-          <div className="section section-pills text-center">
+          <div className="section section-pills text-center" style={{marginTop: -100}}>
             <Container>
               <div id="navigation-pills">
 
