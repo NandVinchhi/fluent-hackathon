@@ -4,11 +4,13 @@
   "private": true,
   "dependencies": {
     "chart.js": "^2.9.4",
+    "mic-recorder-to-mp3": "^2.2.2",
     "moment": "2.26.0",
     "node-sass": "4.14.1",
     "nouislider": "14.5.0",
     "react": "16.13.1",
     "react-audio-player": "^0.14.0",
+    "react-audio-recorder": "^2.2.0",
     "react-bootstrap-switch": "15.5.3",
     "react-chartjs-2": "^2.10.0",
     "react-datetime": "2.16.3",
