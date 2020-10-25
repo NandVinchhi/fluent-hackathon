@@ -10,7 +10,7 @@ def get_stats(userid):
     
     if k != None:
 
-        return {"status":"success", "pace": k['pace'], "eloquence": k["eloquence"], "word_choice": k["word_choice"]}
+        return {"status":"success", "pace": k['pace'], "eloquence": k["eloquence"], "word_choice": k["word_choice"], "pronunciation":k["pronunciation"], "overall_score":k["overall_score"]}
 
     else:
         return {"status":"failed"}

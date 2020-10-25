@@ -43,7 +43,7 @@ def audio_endpoint():
     data = request.json
     try:
         k = get_data(data["audio"])
-        x = put_data(data["userid"], k["pace"], k["eloquence"], k["word_choice"])
+        x = put_data(data["userid"], k["pace"], k["eloquence"], k["word_choice"], k["pronunciation"], k["overall_score"])
         if x["status"] == "failed":
             return {"status":"failed"}
         return k
