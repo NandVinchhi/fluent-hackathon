@@ -1,8 +1,6 @@
 import React from "react";
 // react plugin used to create DropdownMenu for selecting items
 import Select from "react-select";
-
-// reactstrap components
 import {
   Badge,
   Button,
@@ -27,57 +25,85 @@ import {
   CardHeader,
 } from "reactstrap";
 
-import {Recorder} from 'react-voice-recorder'
+import MicRecorder from 'mic-recorder-to-mp3';
 import 'react-voice-recorder/dist/index.css'
+const Mp3Recorder = new MicRecorder({ bitRate: 128 });
 
 class RecordAudio extends React.Component {
-  render() {
+  constructor(props){
+    super(props);
     this.state = {
-      audioDetails: {
-        url: null,
-        blob: null,
-        chunks: null,
-        duration: {
-          h: 0,
-          m: 0,
-          s: 0
-        }
-      }
+      isRecording: false,
+      blobURL: '',
+      isBlocked: false,
+    };
+  }
+
+  start = () => {
+    if (this.state.isBlocked) {
+      console.log('Permission Denied');
+    } else {
+      Mp3Recorder
+        .start()
+        .then(() => {
+          this.setState({ isRecording: true });
+        }).catch((e) => console.error(e));
     }
+  };
 
-    // handleAudioStop(data){
-    //   console.log(data)
-    //   this.setState({ audioDetails: data });
-    // }
+  stop = () => {
+    Mp3Recorder
+      .stop()
+      .getMp3()
+      .then(([buffer, blob]) => {
+        var reader = new FileReader();
+        var audioControl = document.getElementById('audio');
+        reader.addEventListener("loadend", function() {
 
-    // handleAudioUpload(file) {
-    //     console.log(file);
-    // }
+                  
+                  var base64FileData = reader.result.toString();
 
-    // handleRest() {
-    //     const reset = {
-    //       url: null,
-    //       blob: null,
-    //       chunks: null,
-    //       duration: {
-    //         h: 0,
-    //         m: 0,
-    //         s: 0
-    //       }
-    //     };
-    //     this.setState({ audioDetails: reset });
-    //   }
-  
+                  console.log(base64FileData);
+                  audioControl.src = base64FileData;
+                  window.sessionStorage.setItem("input_audio1", base64FileData.substr(22));
+                  
+
+                });
+
+                reader.readAsDataURL(blob);
+                this.setState({isRecording:false});
+      }).catch((e) => console.log(e));
+  };
+
+  componentDidMount() {
+    navigator.getUserMedia({ audio: true },
+      () => {
+        console.log('Permission Granted');
+        this.setState({ isBlocked: false });
+      },
+      () => {
+        console.log('Permission Denied');
+        this.setState({ isBlocked: true })
+      },
+    );
+  }
+
+  render(){
     return (
-      <Recorder
-        record={true}
-        title={"New recording"}
-        audioURL={this.state.audioDetails.url}
-        showUIAudio
-        handleAudioStop={data => this.handleAudioStop(data)}
-        handleAudioUpload={data => this.handleAudioUpload(data)}
-        handleRest={() => this.handleRest()} 
-    />
+      <div className="App">
+        <header className="App-header">
+          <Button disabled = {this.state.isRecording} onClick = {this.start} style={{fontSize: 20, marginTop: 50}} className="btn-round" color="info" type="button">
+              Record
+          </Button>
+          <Button disabled = {!this.state.isRecording} onClick = {this.stop} style={{fontSize: 20, marginTop: 50}} className="btn-round" color="info" type="button">
+              Stop
+          </Button>
+          
+          <br/>
+          <br/>
+          <audio src={this.state.blobURL} id="audio" controls="controls" />
+        </header>
+      </div>
     );
   }
 }
