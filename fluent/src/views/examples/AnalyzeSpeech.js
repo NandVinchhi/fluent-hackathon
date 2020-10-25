@@ -523,7 +523,7 @@ function AnalyzeSpeech() {
 
           <div className="projects-5">
             <Container>
-              {/* <hr></hr> */}
+              <hr></hr>
             </Container>
           </div>
 
@@ -541,6 +541,12 @@ function AnalyzeSpeech() {
                 </Row>
               </Container>  
             </div>
+          </div>
+          
+          <div className="projects-5">
+            <Container>
+              <hr></hr>
+            </Container>
           </div>
           
         </div>
