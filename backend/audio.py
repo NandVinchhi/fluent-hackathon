@@ -37,13 +37,13 @@ def process(k):
     final = [[], [], []]
     confidence = 0
 
-    for i in k.results:
-        confidence += i.alternatives[0].confidence
-        final[0].append(i.alternatives[0].words[0].word)
-        final[1].append(i.alternatives[0].words[0].start_time.total_seconds())
+    for i in k.results[0].alternatives[0].words:
+        
+        final[0].append(i.word)
+        final[1].append(i.start_time.total_seconds())
 
-        final[2].append(i.alternatives[0].words[0].end_time.total_seconds())
-    return final, confidence/len(final[1])
+        final[2].append(i.end_time.total_seconds())
+    return final, k.results[0].alternatives[0].confidence
 
 def transcribe_file(file_name):
 
@@ -85,11 +85,13 @@ def get_data(k):
     k = transcribe_file("audio.raw")
     
     f, confidence = process(k)
+    
     length = get_length("audio.wav")
     pace = int((len(f[2])/ f[2][len(f[2]) - 1]) * 60 + 0.5)
     word_choice_score = get_word_choice(f[0])
 
     final_audio = AudioSegment.from_wav('audio.wav')
+    
     num_filler = 0
     ff = [0]
 
@@ -98,19 +100,22 @@ def get_data(k):
         ff.append(f[2][i])
 
     ff.append(length)
+    
 
     final_extract = AudioSegment.silent(duration=20)
 
     for i in range(0, len(ff) - 1):
         if i % 2 == 0:
             final_extract += final_audio[ff[i] * 1000:ff[i + 1] * 1000]
+            
         else:
             extract = final_audio[ff[i] * 1000:ff[i + 1] * 1000]
             dBFS = extract.dBFS
             chunks = split_on_silence(extract, 
-                min_silence_len = 300,
+                min_silence_len = 100,
                 silence_thresh = dBFS-16,
             )
+            
             final_extract += chunks[len(chunks) - 1]
             num_filler += len(chunks) - 1
 
@@ -122,10 +127,9 @@ def get_data(k):
     os.remove("audio.wav")
     os.remove("audio.raw")
     os.remove("output.mp3")
-    return {"status":"success", "output_audio":s, "pronunciation":round(confidence * 100, 1), "pace":pace, "word_choice":word_choice_score, "eloquence":num_filler, "overall_score":get_overall_score(pace, word_choice_score, num_filler, confidence)}
+    return {"status":"success", "output_audio":"", "pronunciation":round(confidence * 100, 1), "pace":pace, "word_choice":word_choice_score, "eloquence":num_filler, "overall_score":get_overall_score(pace, word_choice_score, num_filler, confidence)}
 
 
-# s = str(base64.b64encode(open("test2.mp3", "rb").read()))
+# s = str(base64.b64encode(open("test.mp3", "rb").read()))
 # s = s[2:len(s) - 1]
-
 # print(get_data(s))
