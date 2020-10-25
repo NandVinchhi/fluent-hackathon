@@ -434,6 +434,7 @@ class Dashboard extends React.Component {
   // }
 
   componentDidMount() {
+    
     console.log("Hello");
     fetch('http://3.131.38.145:8080/stats', {
       method: 'post',

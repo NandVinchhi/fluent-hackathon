@@ -44,7 +44,7 @@ function LoginPage() {
     };
   }, []);
   if (window.sessionStorage.getItem("id") != null){
-    history.push("/");
+    history.push("/about-us");
     return null;
   }
   return (
@@ -127,7 +127,7 @@ function LoginPage() {
                           body: JSON.stringify({email:email, password:password})}).then((Response) => Response.json()).then((Result) => {
                               if (Result.status == "success"){
                                 window.sessionStorage.setItem("id", Result.id);
-                                history.push('/');
+                                history.push('/about-us');
                               }
                             else{
                               setError("Incorrect email or password.");
