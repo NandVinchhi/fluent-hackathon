@@ -1,2 +1,2 @@
-# fluent
-hackathon submission to UB Hacking 2020
+# Fluent
+Hackathon submission to UB Hacking 2020
