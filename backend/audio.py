@@ -127,7 +127,7 @@ def get_data(k):
     os.remove("audio.wav")
     os.remove("audio.raw")
     os.remove("output.mp3")
-    return {"status":"success", "output_audio":"", "pronunciation":round(confidence * 100, 1), "pace":pace, "word_choice":word_choice_score, "eloquence":num_filler, "overall_score":get_overall_score(pace, word_choice_score, num_filler, confidence)}
+    return {"status":"success", "output_audio":s, "pronunciation":round(confidence * 100, 1), "pace":pace, "word_choice":word_choice_score, "eloquence":num_filler, "overall_score":get_overall_score(pace, word_choice_score, num_filler, confidence)}
 
 
 # s = str(base64.b64encode(open("test.mp3", "rb").read()))
