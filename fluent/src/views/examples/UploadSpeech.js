@@ -70,13 +70,13 @@ function UploadSpeech() {
                               if (Result.status == "success"){
                                 console.log(Result);
 
-                                if(Result.pace < 50){
+                                if(Result.pace < 90){
                                   setPaceTitle("Slow");
                                   setPaceText("Your speaking rate is " + Result.pace.toString() + " words per minute. Consider speaking a little faster.");
                                   setPaceColor("orange");
                                 }
 
-                                else if (Result.pace >= 50 && Result.pace < 85){
+                                else if (Result.pace >= 90 && Result.pace < 150){
                                   setPaceTitle("Just Right");
                                   setPaceText("Your speaking rate is " + Result.pace.toString() + " words per minute. This indicates a good pace.");
                                   setPaceColor("green");
