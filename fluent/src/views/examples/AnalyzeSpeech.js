@@ -45,6 +45,7 @@ function AnalyzeSpeech() {
   const [tabs, setTabs] = React.useState("1");
   const [output_audio, set_output_audio] = React.useState("");
 
+  const [NLP, setNLP] = React.useState("None");
   const [paceTitle, setPaceTitle] = React.useState("None");
   const [paceText, setPaceText] = React.useState("Upload an audio file to view results.");
   const [paceColor, setPaceColor] = React.useState("#626262");
@@ -82,7 +83,7 @@ function AnalyzeSpeech() {
                           body: JSON.stringify({userid:window.sessionStorage.getItem("id"), audio:window.sessionStorage.getItem("input_audio1")})}).then((Response) => Response.json()).then((Result) => {
                               if (Result.status == "success"){
                                 console.log(Result);
-
+                                setNLP(Result.NLP);
                                 if(Result.pace < 90){
                                   setPaceTitle("Slow");
                                   setPaceText("Your speaking rate is " + Result.pace.toString() + " words per minute. Consider speaking a little faster.");
@@ -228,7 +229,7 @@ function AnalyzeSpeech() {
               <hr></hr>
             </Container>
           </div>
-          
+
           <div>
             <div id="file-uploader">
               <Container>
@@ -511,6 +512,8 @@ function AnalyzeSpeech() {
                           </Col>
                         </Row>
                       </Container>
+
+
                     </div>
                   </Col>
                 </Row>
@@ -522,6 +525,22 @@ function AnalyzeSpeech() {
             <Container>
               {/* <hr></hr> */}
             </Container>
+          </div>
+
+          <div className="text-center" style={{marginTop: -80}}>
+            <div>
+              <Container>
+                <Row>
+                  <Col className="mr-auto ml-auto" md="8">
+                    <h2 className="title">NLP Analysis</h2>
+
+                    <h3 style = {{color:"green"}}>{NLP}</h3>
+                    {NLP == "Passive Voice" && (<p>Our algorithms determined your input to be in passive voice, which is good for convincing listeners and to prove your point.</p>)}
+                    {NLP == "Active Voice" && (<p>Our algorithms determined your input to be in active voice, which is optimal for having engaging conversations with your listeners.</p>)}
+                  </Col>
+                </Row>
+              </Container>  
+            </div>
           </div>
           
         </div>
