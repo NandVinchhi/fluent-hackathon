@@ -91,7 +91,7 @@ function AboutUs() {
                             role="tablist"
                             style={{justifyContent: 'center'}}
                           >
-                            <NavItem>
+                            <NavItem >
                               <NavLink
                                 className={justIconVerticalTabs === "1" ? "active" : ""}
                                 href="#pablo"
@@ -112,6 +112,7 @@ function AboutUs() {
                                   e.preventDefault();
                                   setJustIconVerticalTabs("2");
                                 }}
+                                // style={justIconVerticalTabs === "2" ? {backgroundColor: '#2ca8ff'} : {backgroundColor: '444444'}}
                               >
                                 <i className="now-ui-icons business_bulb-63"></i>
                               </NavLink>

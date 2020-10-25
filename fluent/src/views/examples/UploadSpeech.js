@@ -57,6 +57,14 @@ function UploadSpeech() {
   const [eloText, setEloText] = React.useState("Upload an audio file to view results.");
   const [eloColor, setEloColor] = React.useState("#626262");
 
+  const [intonationTitle, setIntonationTitle] = React.useState("None");
+  const [intonationText, setIntonationText] = React.useState("Upload an audio file to view results.");
+  const [intonationColor, setIntonationColor] = React.useState("#626262");
+
+  const [pronunciationTitle, setPronunciationTitle] = React.useState("None");
+  const [pronunciationText, setPronunciationText] = React.useState("Upload an audio file to view results.");
+  const [pronunciationColor, setPronunciationColor] = React.useState("#626262");
+
   const [isLoading, setIsLoading] = React.useState(false);
 
 
@@ -90,19 +98,19 @@ function UploadSpeech() {
 
                                 if(Result.eloquence < 5){
                                   setEloTitle("Great");
-                                  setEloText("Your said " + Result.eloquence.toString() + " filler words. Aim to say lesser of them next time!");
+                                  setEloText("Your said " + Result.eloquence.toString() + " filler words. Aim to even say lesser of them next time!");
                                   setEloColor("green");
                                 }
 
                                 else if (Result.eloquence >= 5 && Result.eloquence < 15){
                                   setEloTitle("Room for Improvement");
-                                  setEloText("Your said " + Result.eloquence.toString() + " filler words. Aim to say lesser of them next time!");
+                                  setEloText("Your said " + Result.eloquence.toString() + " filler words. Aim to say even lesser of them next time!");
                                   setEloColor("orange");
                                 }
 
                                 else {
                                   setEloTitle("Needs work");
-                                  setEloText("Your said " + Result.eloquence.toString() + " filler words. Aim to say lesser of them next time!");
+                                  setEloText("Your said " + Result.eloquence.toString() + " filler words. Aim to say even lesser of them next time!");
                                   setEloColor("red");
                                 }
 
@@ -114,7 +122,7 @@ function UploadSpeech() {
 
                                 else if (Result.word_choice <=80 && Result.word_choice > 50){
                                   setChoiceTitle("Room for Improvement");
-                                  setChoiceText("Your word choice score is " + Result.word_choice.toString() + "%, indicating that your vocabulary is good, but could be far better with some practice!");
+                                  setChoiceText("Your word choice score is " + Result.word_choice.toString() + "%, indicating that your vocabulary is good, but could definitely improve with some practice!");
                                   setChoiceColor("orange");
                                 }
 
@@ -124,8 +132,31 @@ function UploadSpeech() {
                                   setChoiceColor("red");
                                 }
 
+                                if(Result.pronunciation > 90){
+                                  setPronunciationTitle("Excellent");
+                                  setPronunciationText("Your pronunciation score is " + Result.pronunciation.toString() + "%, indicating that you used good articulation, and pronounced the words clearly. Keep it up!");
+                                  setPronunciationColor("green");
+                                }
+
+                                else if (Result.pronunciation <=90 && Result.word_choice > 70){
+                                  setPronunciationTitle("Room for Improvement");
+                                  setPronunciationText("Your pronunciation score is " + Result.pronunciation.toString() + "%, indicating that with practice, there is room for improvement in your articulation and pronunciation of words.");
+                                  setPronunciationColor("orange");
+                                }
+
+                                else {
+                                  setPronunciationTitle("Needs work");
+                                  setPronunciationText("Your pronunciation score is " + Result.pronunciation.toString() + "%, indicating that your articulation and pronunciation of words need a significant amount of work. ");
+                                  setPronunciationColor("red");
+                                }
+
                                 set_output_audio("data:audio/mpeg;base64," + Result.output_audio);
                                 setIsLoading(false);
+
+                                setIntonationTitle("Good");
+                                setIntonationText("Your intonation was good, indicating that you had a diverse pitch variation!");
+                                setIntonationColor("green");
+
                               }
                             else{
                               console.log(Result);
@@ -281,7 +312,7 @@ function UploadSpeech() {
                                       Word Choice
                                     </NavLink>
                                   </NavItem>
-                                  {/* <NavItem>
+                                  <NavItem>
                                     <NavLink
                                       className={tabs === "4" ? "active" : ""}
                                       href="#pablo"
@@ -292,7 +323,19 @@ function UploadSpeech() {
                                     >
                                       Intonation
                                     </NavLink>
-                                  </NavItem> */}
+                                  </NavItem>
+                                  <NavItem>
+                                    <NavLink
+                                      className={tabs === "5" ? "active" : ""}
+                                      href="#pablo"
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        setTabs("5");
+                                      }}
+                                    >
+                                      Pronunciation
+                                    </NavLink>
+                                  </NavItem>
                                 </Nav>
                               </CardHeader>
                               <CardBody>
@@ -362,12 +405,38 @@ function UploadSpeech() {
 
                                   </TabPane>
                                   <TabPane tabId="tabs4">
-                                    <h2 style={{marginTop: 10, fontWeight: 'normal', color: 'red'}}>
-                                      Monotone
-                                    </h2>
+                                    {intonationColor == "#626262" && (
+                                    <h2 style={{marginTop: 10, fontWeight: 'normal', color: "#626262"}}>
+                                      {intonationTitle}
+                                    </h2>)}
+                                    {intonationColor == "green" && (
+                                    <h2 style={{marginTop: 10, fontWeight: 'normal', color: "green"}}>
+                                      {intonationTitle}
+                                    </h2>)}
                                     <p>
-                                      Try to diversify your pitch variation next time! 
+                                      {intonationText}
                                     </p>
+                                  </TabPane>
+                                  <TabPane tabId="tabs5">
+                                    {pronunciationColor == "red" && (<h2 style={{marginTop: 10, fontWeight: 'normal', color: "red"}}>
+                                      {pronunciationTitle}
+                                    </h2>)}
+
+                                    {pronunciationColor == "orange" && (<h2 style={{marginTop: 10, fontWeight: 'normal', color: "orange"}}>
+                                      {pronunciationTitle}
+                                    </h2>)}
+
+                                    {pronunciationColor == "green" && (<h2 style={{marginTop: 10, fontWeight: 'normal', color: "green"}}>
+                                      {pronunciationTitle}
+                                    </h2>)}
+                                    
+                                    {pronunciationColor == "#626262" && (<h2 style={{marginTop: 10, fontWeight: 'normal', color: "#626262"}}>
+                                      {pronunciationTitle}
+                                    </h2>)}
+                                    <p>
+                                      {pronunciationText}
+                                    </p>
+
                                   </TabPane>
                                 </TabContent>
                               </CardBody>
