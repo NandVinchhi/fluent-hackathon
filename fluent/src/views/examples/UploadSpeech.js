@@ -154,6 +154,24 @@ function UploadSpeech() {
                                   setPronunciationColor("red");
                                 }
 
+                                if(Result.overall_score > 90){
+                                  setOverallTitle("Excellent");
+                                  setOverallText("Your overall speaking score is " + Result.overall_score.toString() + "%. Keep it up!");
+                                  setOverallColor("green");
+                                }
+
+                                else if (Result.overall_score <=90 && Result.overall_score > 70){
+                                  setOverallTitle("Room for Improvement");
+                                  setOverallText("Your overall speaking score is " + Result.overall_score.toString() + "%, indicating that with practice, there is room for improvement in your speaking skills.");
+                                  setOverallColor("orange");
+                                }
+
+                                else {
+                                  setOverallTitle("Needs work");
+                                  setOverallText("Your overall speaking score is " + Result.overall_score.toString() + "%, indicating that your speaking skills need a significant amount of work. But don't worry because every great achievement starts with small steps.");
+                                  setOverallColor("red");
+                                }
+
                                 set_output_audio("data:audio/mpeg;base64," + Result.output_audio);
                                 setIsLoading(false);
 
@@ -271,7 +289,7 @@ function UploadSpeech() {
                     <div className="section">
                       <Container>
                         <Row>
-                          <Col className="ml-auto mr-auto" md="10" xl="8">
+                          <Col className="ml-auto mr-auto" md="12" xl="10">
                             <Card>
                               <CardHeader>
                                 <Nav
@@ -280,6 +298,18 @@ function UploadSpeech() {
                                   role="tablist"
                                   tabs
                                 >
+                                  <NavItem>
+                                    <NavLink
+                                      className={tabs === "6" ? "active" : ""}
+                                      href="#pablo"
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        setTabs("6");
+                                      }}
+                                    >
+                                      Overall Score
+                                    </NavLink>
+                                  </NavItem>
                                   <NavItem>
                                     <NavLink
                                       className={tabs === "1" ? "active" : ""}
@@ -340,6 +370,7 @@ function UploadSpeech() {
                                       Pronunciation
                                     </NavLink>
                                   </NavItem>
+                                  
                                 </Nav>
                               </CardHeader>
                               <CardBody>
@@ -439,6 +470,27 @@ function UploadSpeech() {
                                     </h2>)}
                                     <p>
                                       {pronunciationText}
+                                    </p>
+
+                                  </TabPane>
+                                  <TabPane tabId="tabs6">
+                                    {overallColor == "red" && (<h2 style={{marginTop: 10, fontWeight: 'normal', color: "red"}}>
+                                      {overallTitle}
+                                    </h2>)}
+
+                                    {overallColor == "orange" && (<h2 style={{marginTop: 10, fontWeight: 'normal', color: "orange"}}>
+                                      {overallTitle}
+                                    </h2>)}
+
+                                    {overallColor == "green" && (<h2 style={{marginTop: 10, fontWeight: 'normal', color: "green"}}>
+                                      {overallTitle}
+                                    </h2>)}
+                                    
+                                    {overallColor == "#626262" && (<h2 style={{marginTop: 10, fontWeight: 'normal', color: "#626262"}}>
+                                      {overallTitle}
+                                    </h2>)}
+                                    <p>
+                                      {overallText}
                                     </p>
 
                                   </TabPane>
