@@ -5,7 +5,7 @@ import ReactAudioPlayer from 'react-audio-player';
 import RecordAudio from "./RecordAudio.js";
 import loading from "./loading.gif";
 import PerfectScrollbar from "perfect-scrollbar";
-
+import Camera from "./camera.js";
 // reactstrap components
 import {
   Badge,
@@ -56,6 +56,7 @@ function AnalyzeSpeech() {
   const [eloTitle, setEloTitle] = React.useState("None");
   const [eloText, setEloText] = React.useState("Upload an audio file to view results.");
   const [eloColor, setEloColor] = React.useState("#626262");
+  const [posesString, setPosesString] = React.useState([]);
 
   const [intonationTitle, setIntonationTitle] = React.useState("None");
   const [intonationText, setIntonationText] = React.useState("Upload an audio file to view results.");
@@ -220,17 +221,27 @@ function AnalyzeSpeech() {
             </div>
             
           </div>
+          <Camera/>
 
+          <div className="projects-5">
+            <Container>
+              <hr></hr>
+            </Container>
+          </div>
+          
           <div>
             <div id="file-uploader">
               <Container>
                 <div className="title">
                   {/* <h4>File Uploader</h4> */}
                 </div>
+
+                
                 <Row>
+
                   <Col md="12" sm="12" style={{backgroundColor: 'transparent' ,textAlign: 'center'}}>
                     <h3>
-                      Get started
+                      Click Below to Record Audio
                     </h3>
                     <RecordAudio />
                   </Col>
