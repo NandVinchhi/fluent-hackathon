@@ -134,23 +134,10 @@ const dashboardPanelChart = {
     gradientFill.addColorStop(1, "rgba(255, 255, 255, 0.14)");
 
     return {
-      labels: [
-        "JAN",
-        "FEB",
-        "MAR",
-        "APR",
-        "MAY",
-        "JUN",
-        "JUL",
-        "AUG",
-        "SEP",
-        "OCT",
-        "NOV",
-        "DEC",
-      ],
+      labels: ["Recording 1", "Recording 2", "Recording 3","Recording 4","Recording 5","Recording 6","Recording 7","Recording 8", "Recording 9", "Recording 10", "Recording 11", "Recording 12"],
       datasets: [
         {
-          label: "Data",
+          label: "Overall Score",
           borderColor: chartColor,
           pointBorderColor: chartColor,
           pointBackgroundColor: "#2c2c2c",
@@ -233,7 +220,7 @@ const dashboardPanelChart = {
 // // // Dashboard view - Shipped Products - Card
 // #############################
 
-const dashboardShippedProductsChart = {
+const pacegraph = {
   data: (canvas) => {
     var ctx = canvas.getContext("2d");
     var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
@@ -243,23 +230,10 @@ const dashboardShippedProductsChart = {
     gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
     gradientFill.addColorStop(1, "rgba(249, 99, 59, 0.40)");
     return {
-      labels: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
+      labels: ["Recording 1", "Recording 2", "Recording 3","Recording 4"],
       datasets: [
         {
-          label: "Active Users",
+          label: "Pace (WPM)",
           borderColor: "#f96332",
           pointBorderColor: "#FFF",
           pointBackgroundColor: "#f96332",
@@ -270,7 +244,7 @@ const dashboardShippedProductsChart = {
           fill: true,
           backgroundColor: gradientFill,
           borderWidth: 2,
-          data: [542, 480, 430, 550, 530, 453, 380, 434, 568, 610, 700, 630],
+          data: [21, 21, 21, 21],
         },
       ],
     };
@@ -278,11 +252,7 @@ const dashboardShippedProductsChart = {
   options: gradientChartOptionsConfiguration,
 };
 
-// ##############################
-// // // Dashboard view - All Products - Card
-// #############################
-
-const dashboardAllProductsChart = {
+const eloquencegraph = {
   data: (canvas) => {
     var ctx = canvas.getContext("2d");
     var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
@@ -292,10 +262,10 @@ const dashboardAllProductsChart = {
     gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
     gradientFill.addColorStop(1, hexToRGB("#18ce0f", 0.4));
     return {
-      labels: ["12pm,", "3pm", "6pm", "9pm", "12am", "3am", "6am", "9am"],
+      labels: ["Recording 1", "Recording 2", "Recording 3","Recording 4","Recording 5","Recording 6","Recording 7","Recording 8"],
       datasets: [
         {
-          label: "Email Stats",
+          label: "Filler Words",
           borderColor: "#18ce0f",
           pointBorderColor: "#FFF",
           pointBackgroundColor: "#18ce0f",
@@ -314,34 +284,17 @@ const dashboardAllProductsChart = {
   options: gradientChartOptionsConfigurationWithNumbersAndGrid,
 };
 
-// ##############################
-// // // Dashboard view - Bar Chart - Card
-// #############################
-
-const dashboard24HoursPerformanceChart = {
+const wordchoicegraph = {
   data: (canvas) => {
     var ctx = canvas.getContext("2d");
     var gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
     gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
     gradientFill.addColorStop(1, hexToRGB("#2CA8FF", 0.6));
     return {
-      labels: [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-      ],
+      labels: ["Recording 1", "Recording 2", "Recording 3","Recording 4","Recording 5","Recording 6","Recording 7","Recording 8", "Recording 9", "Recording 10", "Recording 11", "Recording 12"],
       datasets: [
         {
-          label: "Active Countries",
+          label: "% Unique Words",
           backgroundColor: gradientFill,
           borderColor: "#2CA8FF",
           pointBorderColor: "#FFF",
@@ -405,9 +358,76 @@ const dashboard24HoursPerformanceChart = {
   },
 };
 
+
+const pronunciationgraph = {
+  data: (canvas) => {
+    var ctx = canvas.getContext("2d");
+    var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
+    gradientStroke.addColorStop(0, "#ffe600");
+    gradientStroke.addColorStop(1, chartColor);
+    var gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
+    gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
+    gradientFill.addColorStop(1, hexToRGB("#ffe600", 0.4));
+    return {
+      labels: ["Recording 1", "Recording 2", "Recording 3","Recording 4","Recording 5","Recording 6","Recording 7","Recording 8"],
+      datasets: [
+        {
+          label: "Pronunciation Accuracy %",
+          borderColor: "#ffe600",
+          pointBorderColor: "#FFF",
+          pointBackgroundColor: "#ffe600",
+          pointBorderWidth: 2,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 1,
+          pointRadius: 4,
+          fill: true,
+          backgroundColor: gradientFill,
+          borderWidth: 2,
+          data: [40, 500, 650, 700, 1200, 1250, 1300, 1900],
+        },
+      ],
+    };
+  },
+  options: gradientChartOptionsConfigurationWithNumbersAndGrid,
+};
+
+const intonationgraph = {
+  data: (canvas) => {
+    var ctx = canvas.getContext("2d");
+    var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
+    gradientStroke.addColorStop(0, "#80b6f4");
+    gradientStroke.addColorStop(1, chartColor);
+    var gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
+    gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
+    gradientFill.addColorStop(1, "rgba(249, 99, 59, 0.40)");
+    return {
+      labels: ["Recording 1", "Recording 2", "Recording 3","Recording 4","Recording 5","Recording 6","Recording 7","Recording 8", "Recording 9", "Recording 10", "Recording 11", "Recording 12"],
+      datasets: [
+        {
+          label: "Qualitative",
+          borderColor: "#f96332",
+          pointBorderColor: "#FFF",
+          pointBackgroundColor: "#f96332",
+          pointBorderWidth: 2,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 1,
+          pointRadius: 4,
+          fill: true,
+          backgroundColor: gradientFill,
+          borderWidth: 2,
+          data: [542, 480, 430, 550, 530, 453, 380, 434, 568, 610, 700, 630],
+        },
+      ],
+    };
+  },
+  options: gradientChartOptionsConfiguration,
+};
+
 module.exports = {
-  dashboardPanelChart, // Chart for Dashboard view - Will be rendered in panel
-  dashboardShippedProductsChart, // Chart for Dashboard view - Shipped Products Card
-  dashboardAllProductsChart, // Chart for Dashboard view - All products Card
-  dashboard24HoursPerformanceChart, // Chart for Dashboard view - 24 Hours Performance Card
+  dashboardPanelChart,
+  pacegraph,
+  eloquencegraph,
+  wordchoicegraph,
+  pronunciationgraph,
+  intonationgraph
 };
