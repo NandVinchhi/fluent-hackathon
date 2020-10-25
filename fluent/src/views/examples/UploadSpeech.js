@@ -65,6 +65,10 @@ function UploadSpeech() {
   const [pronunciationText, setPronunciationText] = React.useState("Upload an audio file to view results.");
   const [pronunciationColor, setPronunciationColor] = React.useState("#626262");
 
+  const [overallTitle, setOverallTitle] = React.useState("None");
+  const [overallText, setOverallText] = React.useState("Upload an audio file to view results.");
+  const [overallColor, setOverallColor] = React.useState("#626262");
+
   const [isLoading, setIsLoading] = React.useState(false);
 
 

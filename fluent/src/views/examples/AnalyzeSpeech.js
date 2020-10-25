@@ -1,6 +1,7 @@
 import React from "react";
 // react plugin used to create DropdownMenu for selecting items
 import Select from "react-select";
+import RecordAudio from "./RecordAudio"
 
 // reactstrap components
 import {
@@ -58,6 +59,11 @@ function AnalyzeSpeech() {
       document.body.classList.remove("sidebar-collapse");
     };
   }, []);
+
+  const handleOnChange = (audio) => {
+    console.log(audio);
+  }
+  
   return (
     <>
       <UploadFixedNavbar />
@@ -137,32 +143,32 @@ function AnalyzeSpeech() {
                       <TabPane tabId="justIconVerticalTabs1">
                         <br></br>
                         <h2>Audio Only</h2>
-                        Collaboratively administrate empowered markets via
-                        plug-and-play networks. Dynamically procrastinate B2C users
-                        after installed base benefits. <br></br>
-                        <br></br>
-                        Dramatically visualize customer directed convergence without
-                        revolutionary ROI.
+                        <Container className="text-center">
+                          <Button style={{fontSize: 20, marginTop: 10}} className="btn-round" color="info" type="button">
+                            Start Recording
+                          </Button>
+
+                          <RecordAudio />  
+                        
+                        </Container>
                       </TabPane>
                       <TabPane tabId="justIconVerticalTabs2">
                         <br></br>
                         <h2>Video Only</h2>
-                        Efficiently unleash cross-media information without
-                        cross-media value. Quickly maximize timely deliverables for
-                        real-time schemas. <br></br>
-                        <br></br>
-                        Dramatically maintain clicks-and-mortar solutions without
-                        functional solutions.
+                        <Container className="text-center">
+                          <Button style={{fontSize: 20, marginTop: 10}} className="btn-round" color="info" type="button">
+                            Start Recording
+                          </Button>
+                        </Container>
                       </TabPane>
                       <TabPane tabId="justIconVerticalTabs3">
                         <br></br>
                         <h2>Audio and Video</h2>
-                        Completely synergize resource taxing relationships via
-                        premier niche markets. Professionally cultivate one-to-one
-                        customer service with robust ideas. <br></br>
-                        <br></br>
-                        Dynamically innovate resource-leveling customer service for
-                        state of the art customer service.
+                        <Container className="text-center">
+                          <Button style={{fontSize: 20, marginTop: 10}} className="btn-round" color="info" type="button">
+                            Start Recording
+                          </Button>
+                        </Container>
                       </TabPane>
                     </TabContent>
                   </Col>
@@ -232,7 +238,7 @@ function AnalyzeSpeech() {
                                       Word Choice
                                     </NavLink>
                                   </NavItem>
-                                  {/* <NavItem>
+                                  <NavItem>
                                     <NavLink
                                       className={tabs === "4" ? "active" : ""}
                                       href="#pablo"
@@ -243,7 +249,19 @@ function AnalyzeSpeech() {
                                     >
                                       Intonation
                                     </NavLink>
-                                  </NavItem> */}
+                                  </NavItem>
+                                  <NavItem>
+                                    <NavLink
+                                      className={tabs === "5" ? "active" : ""}
+                                      href="#pablo"
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        setTabs("5");
+                                      }}
+                                    >
+                                      Pronunciation
+                                    </NavLink>
+                                  </NavItem>
                                 </Nav>
                               </CardHeader>
                               <CardBody>
@@ -278,6 +296,14 @@ function AnalyzeSpeech() {
                                     </h2>
                                     <p>
                                       Try to diversify your pitch variation next time! 
+                                    </p>
+                                  </TabPane>
+                                  <TabPane tabId="tabs5">
+                                    <h2 style={{marginTop: 10, fontWeight: 'normal', color: 'green'}}>
+                                      Good
+                                    </h2>
+                                    <p>
+                                      Your pronunciation was good.
                                     </p>
                                   </TabPane>
                                 </TabContent>
