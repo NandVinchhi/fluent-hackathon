@@ -1,6 +1,8 @@
 import React from "react";
 // react plugin used to create DropdownMenu for selecting items
 import Select from "react-select";
+import recording from "./recording.gif";
+
 import {
   Badge,
   Button,
@@ -101,7 +103,10 @@ class RecordAudio extends React.Component {
           
           <br/>
           <br/>
+          {this.state.isRecording && (<img src = {recording} style = {{width:"7%"}}/>)}
+          <br/>
           <audio src={this.state.blobURL} id="audio" controls="controls" />
+          
         </header>
       </div>
     );
